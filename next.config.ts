@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
 
     return [
       {
+        source: "/api-proxy/article",
+        destination: `${configuredApiBaseUrl}/article/`,
+      },
+      {
         source: "/api-proxy/:path*",
         destination: `${configuredApiBaseUrl}/:path*`,
       },
