@@ -1,7 +1,18 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from "next"
+
+const configuredApiBaseUrl = (process.env.API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL)?.replace(/\/$/, "")
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  async rewrites() {
+    if (!configuredApiBaseUrl) return []
 
-export default nextConfig;
+    return [
+      {
+        source: "/api-proxy/:path*",
+        destination: `${configuredApiBaseUrl}/:path*`,
+      },
+    ]
+  },
+}
+
+export default nextConfig
